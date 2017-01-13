@@ -131,10 +131,12 @@ target_link_libraries(stf_internal_graph ${catkin_LIBRARIES})
 
 add_library(stf_graph src/graph.cpp)
 add_dependencies(stf_graph
+  stf_explicit_types
   stf_internal_graph
   stf_transform
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(stf_graph
+  stf_explicit_types
   stf_internal_graph
   stf_transform
   ${catkin_LIBRARIES})
@@ -219,6 +221,9 @@ if (CATKIN_ENABLE_TESTING)
 
   catkin_add_gtest(stf_internal_graph_test test/internal_graph_test.cpp)
   target_link_libraries(stf_internal_graph_test stf_internal_graph ${catkin_LIBRARIES})
+
+  catkin_add_gtest(stf_position_test test/position_test.cpp)
+  target_link_libraries(stf_position_test stf_position ${catkin_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests
