@@ -224,6 +224,9 @@ if (CATKIN_ENABLE_TESTING)
 
   catkin_add_gtest(stf_position_test test/position_test.cpp)
   target_link_libraries(stf_position_test stf_position ${catkin_LIBRARIES})
+
+  catkin_add_gtest(stf_orientation_test test/orientation_test.cpp)
+  target_link_libraries(stf_orientation_test stf_orientation ${catkin_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests
