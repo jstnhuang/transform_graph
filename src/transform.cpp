@@ -12,24 +12,24 @@ Transform::Transform() : transform_(Eigen::Affine3d::Identity()) {}
 Transform::Transform(const stf::Position& position,
                      const stf::Orientation& orientation)
     : transform_(Eigen::Affine3d::Identity()) {
-  transform_.rotate(orientation.matrix());
   transform_.translate(position.vector());
+  transform_.rotate(orientation.matrix());
 }
 
 Transform::Transform(const tf::Transform& st)
     : transform_(Eigen::Affine3d::Identity()) {
   stf::Position position(st.getOrigin());
   stf::Orientation orientation(st.getRotation());
-  transform_.rotate(orientation.matrix());
   transform_.translate(position.vector());
+  transform_.rotate(orientation.matrix());
 }
 
 Transform::Transform(const geometry_msgs::Pose& p)
     : transform_(Eigen::Affine3d::Identity()) {
   stf::Position position(p.position);
   stf::Orientation orientation(p.orientation);
-  transform_.rotate(orientation.matrix());
   transform_.translate(position.vector());
+  transform_.rotate(orientation.matrix());
 }
 
 Transform::Transform(const Eigen::Affine3d& a) : transform_(a) {}
