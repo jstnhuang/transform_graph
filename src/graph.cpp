@@ -8,6 +8,7 @@
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
 
+#include "stf/explicit_types.h"
 #include "stf/transform.h"
 
 using std::pair;
@@ -18,7 +19,7 @@ typedef pair<string, string> FrameKey;
 namespace stf {
 Graph::Graph() : transforms_(), graph_() {}
 
-void Graph::Add(const std::string& name, const Source& source,
+void Graph::Add(const std::string& name, const RefFrame& source,
                 const Transform& transform) {
   graph_.AddEdge(source.id(), name);
   transforms_[FrameKey(source.id(), name)] = transform;
@@ -31,9 +32,9 @@ bool Graph::CanTransform(const string& frame1_id,
   return path.size() > 0;
 }
 
-bool Graph::ComputeTransform(const Source& local_frame,
-                             const Target& reference_frame,
-                             Transform* transform) const {
+bool Graph::ComputeDescription(const LocalFrame& local_frame,
+                               const RefFrame& reference_frame,
+                               Transform* transform) const {
   std::vector<string> path;
   graph_.Path(reference_frame.id(), local_frame.id(), &path);
 
@@ -55,11 +56,16 @@ bool Graph::ComputeTransform(const Source& local_frame,
   return true;
 }
 
-bool Graph::TransformFrame(const Transform& in, const Source& local_frame,
-                           const Target& reference_frame,
-                           Transform* out) const {
+bool Graph::ComputeMapping(const From& from, const To& to,
+                           Transform* transform) const {
+  return ComputeDescription(LocalFrame(to.id()), RefFrame(from.id()),
+                            transform);
+}
+
+bool Graph::DescribePose(const Transform& in, const Source& source_frame,
+                         const Target& target_frame, Transform* out) const {
   std::vector<string> path;
-  graph_.Path(reference_frame.id(), local_frame.id(), &path);
+  graph_.Path(target_frame.id(), source_frame.id(), &path);
 
   if (path.size() == 0) {
     return false;
@@ -80,9 +86,14 @@ bool Graph::TransformFrame(const Transform& in, const Source& local_frame,
   return true;
 }
 
-bool Graph::TransformPosition(const Position& in, const Source& local_frame,
-                              const Target& reference_frame,
-                              Position* out) const {
+bool Graph::MapPose(const Transform& in, const From& from_frame,
+                    const To& to_frame, Transform* out) const {
+  return DescribePose(in, Source(to_frame.id()), Target(from_frame.id()), out);
+}
+
+bool Graph::DescribePosition(const Position& in, const Source& local_frame,
+                             const Target& reference_frame,
+                             Position* out) const {
   std::vector<string> path;
   graph_.Path(reference_frame.id(), local_frame.id(), &path);
 
@@ -103,6 +114,12 @@ bool Graph::TransformPosition(const Position& in, const Source& local_frame,
   *out = result;
 
   return true;
+}
+
+bool Graph::MapPosition(const Position& in, const From& frame_in,
+                        const To& frame_out, Position* out) const {
+  return DescribePosition(in, Source(frame_out.id()), Target(frame_in.id()),
+                          out);
 }
 
 bool Graph::GetTransform(const std::string& source, const std::string& target,
