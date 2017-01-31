@@ -1,10 +1,10 @@
 # stf - Static transformations library
 
 [![Build Status](https://travis-ci.org/jstnhuang/stf.svg?branch=indigo-devel)](https://travis-ci.org/jstnhuang/stf)
+[![Coverage Status](https://coveralls.io/repos/github/jstnhuang/stf/badge.svg?branch=indigo-devel)](https://coveralls.io/github/jstnhuang/stf?branch=indigo-devel)
 
 This is a library that computes transformations betweens arbitrary frames in a graph of transformations.
-
-Most of the functionality exists, but you should probably wait until it is fully documented and tested before using.
+See the generated documentation for details.
 
 Basic example:
 ```cpp
