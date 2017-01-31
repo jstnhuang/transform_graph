@@ -7,9 +7,7 @@
   <maintainer email="jstn@cs.washington.edu">Justin Huang</maintainer>
   <license>MIT</license>
 
-  <!-- <url type="website">http://wiki.ros.org/stf</url> -->
-
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+  <url type="website">http://wiki.ros.org/stf</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <depend>cmake_modules</depend>
