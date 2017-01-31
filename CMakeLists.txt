@@ -216,6 +216,8 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 ## Add gtest based cpp test target and link libraries
 if (CATKIN_ENABLE_TESTING)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage") # Enable code coverage
+
   catkin_add_gtest(stf_graph_test test/graph_test.cpp)
   target_link_libraries(stf_graph_test stf_graph ${catkin_LIBRARIES})
 
