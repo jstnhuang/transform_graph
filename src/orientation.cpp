@@ -6,6 +6,11 @@
 #include "Eigen/Geometry"
 
 namespace stf {
+Orientation::Orientation() : matrix_() {
+  Eigen::Quaterniond q(Eigen::Quaterniond::Identity());
+  matrix_ = q.matrix();
+}
+
 Orientation::Orientation(double w, double x, double y, double z) : matrix_() {
   Eigen::Quaterniond q(w, x, y, z);
   matrix_ = q.matrix();

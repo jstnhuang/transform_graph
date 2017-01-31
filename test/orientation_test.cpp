@@ -3,6 +3,17 @@
 #include <gtest/gtest.h>
 
 namespace stf {
+TEST(TestOrientation, Identity) {
+  Orientation o;
+  Eigen::Matrix3d expected;
+  // clang-format off
+  expected << 1, 0, 0,
+              0, 1, 0,
+              0, 0, 1;
+  // clang-format on
+  EXPECT_TRUE(expected.isApprox(o.matrix(), 0.000001));
+}
+
 TEST(TestOrientation, TestWxyz) {
   Orientation o(0.92387959, 0, 0, 0.38268353);
   Eigen::Matrix3d expected;

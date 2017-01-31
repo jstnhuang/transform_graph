@@ -10,6 +10,7 @@ namespace stf {
 // Orientation provides conversions from common orientation types.
 class Orientation {
  public:
+  Orientation();
   Orientation(double w, double x, double y, double z);
   Orientation(const Eigen::Matrix3d& m);
   Orientation(const Eigen::Quaterniond& q);
