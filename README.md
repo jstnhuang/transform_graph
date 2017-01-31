@@ -1,5 +1,7 @@
 # stf - Static transformations library
 
+[![Build Status](https://travis-ci.org/jstnhuang/stf.svg?branch=indigo-devel)](https://travis-ci.org/jstnhuang/stf)
+
 This is a library that computes transformations betweens arbitrary frames in a graph of transformations.
 
 Most of the functionality exists, but you should probably wait until it is fully documented and tested before using.
