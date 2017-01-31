@@ -9,6 +9,13 @@
 #include "Eigen/Dense"
 
 namespace stf {
+TEST(TestPosition, Identity) {
+  Position p;
+  EXPECT_EQ(p.vector().x(), 0);
+  EXPECT_EQ(p.vector().y(), 0);
+  EXPECT_EQ(p.vector().z(), 0);
+}
+
 TEST(TestPosition, TestXyz) {
   Position p(1, 2, 3);
   EXPECT_EQ(p.vector().x(), 1);

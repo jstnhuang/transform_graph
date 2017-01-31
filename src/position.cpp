@@ -7,6 +7,8 @@
 #include "Eigen/Dense"
 
 namespace stf {
+Position::Position() : vector_() { vector_ << 0, 0, 0; }
+
 Position::Position(double x, double y, double z) : vector_() {
   vector_ << x, y, z;
 }

@@ -11,6 +11,7 @@ namespace stf {
 // Position provides conversions from common position types.
 class Position {
  public:
+  Position();
   Position(double x, double y, double z);
   Position(const Eigen::Vector3d& v);
   Position(const geometry_msgs::Point& p);
