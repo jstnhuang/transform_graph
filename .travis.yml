@@ -22,7 +22,7 @@ install:
 - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 - sudo apt-get update -qq
 - sudo apt-get install -qq -y python-catkin-pkg python-catkin-tools python-rosdep
-  python-wstool ros-$ROS_DISTRO-catkin ros-$ROS_DISTRO-ros lcov
+  python-wstool ros-$ROS_DISTRO-catkin ros-$ROS_DISTRO-ros lcov ros-$ROS_DISTRO-rosdoc-lite
 - gem install coveralls-lcov
 - source /opt/ros/$ROS_DISTRO/setup.bash
 - sudo rosdep init
@@ -36,3 +36,6 @@ script:
 - catkin build
 - catkin run_tests stf --no-deps
 - catkin_test_results build/stf
+after_success:
+- cd ~/catkin_ws/src/stf
+- rosdoc_lite .
