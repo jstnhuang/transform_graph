@@ -87,7 +87,7 @@ class To {
  public:
   /// Constructor
   ///
-  /// \param[in] The name of the frame.
+  /// \param[in] id The name of the frame.
   explicit To(const std::string& id);
 
   /// \returns The name of the frame.
