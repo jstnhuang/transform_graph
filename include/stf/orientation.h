@@ -7,17 +7,29 @@
 #include "Eigen/Geometry"
 
 namespace stf {
-// Orientation provides conversions from common orientation types.
+/// \brief Orientation provides conversions from common orientation types.
+///
+/// By default it is the identity orientation.
+/// To get the rotation matrix, call Orientation::matrix().
 class Orientation {
  public:
+  /// Default constructor, identity rotation.
   Orientation();
+  /// Quaternion constructor.
   Orientation(double w, double x, double y, double z);
+  /// Eigen rotation matrix constructor.
   Orientation(const Eigen::Matrix3d& m);
+  /// Eigen::Quaterniond constructor.
   Orientation(const Eigen::Quaterniond& q);
+  /// geometry_msgs quaternion constructor.
   Orientation(const geometry_msgs::Quaternion& q);
+  /// tf quaternion constructor.
   Orientation(const tf::Quaternion& q);
+  /// tf rotation matrix constructor.
   Orientation(const tf::Matrix3x3& m);
 
+  /// \brief The rotation matrix represented by this orientation.
+  /// \returns The rotation matrix.
   Eigen::Matrix3d matrix() const;
 
  private:

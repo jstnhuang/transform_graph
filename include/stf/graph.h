@@ -177,7 +177,7 @@ class Graph {
   ///   currently expressed in.
   /// \param[in] target_frame The name of the frame that you would like the pose
   ///   to be described in.
-  /// \param[out] transform The transform that describes the given transform in
+  /// \param[out] out The transform that describes the given transform in
   ///   the target reference frame.
   ///
   /// \returns true if the transform could be computed, false otherwise.
