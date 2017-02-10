@@ -346,7 +346,6 @@ TEST(TestGraph, MapPose) {
   Eigen::Matrix3d rotation(
       Eigen::AngleAxisd(M_PI / 4, Eigen::Vector3d(0, 0, 1)));
   Eigen::Quaterniond quaternion(rotation.matrix());
-  std::cout << rotation.matrix() << std::endl;
 
   Transform actual;
   geometry_msgs::Pose pose;
@@ -368,9 +367,67 @@ TEST(TestGraph, MapPose) {
               0,         0,        0, 1;
   // clang-format on
 
-  success = graph.MapPose(pose, From("left_hand"), To("right_hand"), &actual);
   EXPECT_TRUE(success);
   EXPECT_TRUE(expected.matrix().isApprox(actual.matrix(), 0.000001));
+}
+
+TEST(TestGraph, ComputeMappingBetweenRotatedFrames) {
+  Graph graph;
+  Eigen::Vector3d left_hand(0, 0.5, 0);
+  Eigen::Vector3d right_hand(0, -0.5, 0);
+  Orientation identity;
+
+  Eigen::Matrix3d rotation(
+      Eigen::AngleAxisd(M_PI / 4, Eigen::Vector3d(0, 0, 1)));
+  graph.Add("left_hand", RefFrame("base"), Transform(left_hand, identity));
+  graph.Add("right_hand", RefFrame("base"), Transform(right_hand, rotation));
+
+  geometry_msgs::Point point;
+  point.x = sqrt(2);
+  point.y = 0;
+  point.z = 0;
+  Eigen::Vector4d eigen_point;
+  eigen_point << point.x, point.y, point.z, 1;
+
+  Eigen::Vector3d expected;
+  expected << 1, 0, 0;
+
+  stf::Transform left_to_right;
+  bool success =
+      graph.ComputeMapping(From("left_hand"), To("right_hand"), &left_to_right);
+  Eigen::Vector3d compute_actual =
+      (left_to_right.matrix() * eigen_point).head<3>();
+  EXPECT_TRUE(success);
+  EXPECT_TRUE(expected.isApprox(compute_actual, 0.000001));
+}
+
+TEST(TestGraph, MapPositionBetweenRotatedFrames) {
+  Graph graph;
+  Eigen::Vector3d left_hand(0, 0.5, 0);
+  Eigen::Vector3d right_hand(0, -0.5, 0);
+  Orientation identity;
+
+  Eigen::Matrix3d rotation(
+      Eigen::AngleAxisd(M_PI / 4, Eigen::Vector3d(0, 0, 1)));
+  graph.Add("left_hand", RefFrame("base"), Transform(left_hand, identity));
+  graph.Add("right_hand", RefFrame("base"), Transform(right_hand, rotation));
+
+  geometry_msgs::Point point;
+  point.x = sqrt(2);
+  point.y = 0;
+  point.z = 0;
+  Eigen::Vector4d eigen_point;
+  eigen_point << point.x, point.y, point.z, 1;
+
+  Eigen::Vector3d expected;
+  expected << 1, 0, 0;
+
+  Position actual;
+  bool success =
+      graph.MapPosition(point, From("left_hand"), To("right_hand"), &actual);
+
+  EXPECT_TRUE(success);
+  EXPECT_TRUE(expected.isApprox(actual.vector(), 0.000001));
 }
 }  // namespace stf
 
