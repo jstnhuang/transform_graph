@@ -1,4 +1,4 @@
-#include "stf/graph.h"
+#include "transform_graph/graph.h"
 
 #include <string>
 
@@ -7,7 +7,7 @@
 #include "geometry_msgs/Pose.h"
 #include "gtest/gtest.h"
 
-namespace stf {
+namespace transform_graph {
 // Basic connectivity tests
 TEST(TestGraph, InitiallyEmpty) {
   Graph graph;
@@ -392,7 +392,7 @@ TEST(TestGraph, ComputeMappingBetweenRotatedFrames) {
   Eigen::Vector3d expected;
   expected << 1, 0, 0;
 
-  stf::Transform left_to_right;
+  transform_graph::Transform left_to_right;
   bool success =
       graph.ComputeMapping(From("left_hand"), To("right_hand"), &left_to_right);
   Eigen::Vector3d compute_actual =
@@ -429,7 +429,7 @@ TEST(TestGraph, MapPositionBetweenRotatedFrames) {
   EXPECT_TRUE(success);
   EXPECT_TRUE(expected.isApprox(actual.vector(), 0.000001));
 }
-}  // namespace stf
+}  // namespace transform_graph
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);

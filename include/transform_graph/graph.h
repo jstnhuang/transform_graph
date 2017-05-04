@@ -1,5 +1,5 @@
-#ifndef _STF_GRAPH_H_
-#define _STF_GRAPH_H_
+#ifndef _TRANSFORM_GRAPH_GRAPH_H_
+#define _TRANSFORM_GRAPH_GRAPH_H_
 
 #include <map>
 #include <string>
@@ -8,11 +8,11 @@
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
 
-#include "stf/explicit_types.h"
-#include "stf/graph_internal.h"
-#include "stf/transform.h"
+#include "transform_graph/explicit_types.h"
+#include "transform_graph/graph_internal.h"
+#include "transform_graph/transform.h"
 
-namespace stf {
+namespace transform_graph {
 /// \brief Graph models static transformations between coordinate frames.
 ///
 /// The vertices are coordinate frame IDs, given as strings. The edges are
@@ -31,13 +31,14 @@ namespace stf {
 ///
 /// \b Example:
 /// \code
-///   stf::Graph graph;
-///   graph.Add("head_mount_kinect", stf::RefFrame("base_link"), head_pose);
-///   graph.Add("wrist", stf::RefFrame("base_link"), wrist_pose);
+///   transform_graph::Graph graph;
+///   graph.Add("head_mount_kinect", transform_graph::RefFrame("base_link"),
+///   head_pose);
+///   graph.Add("wrist", transform_graph::RefFrame("base_link"), wrist_pose);
 ///   for (PointXYZ pt : cloud.points) {
-///     stf::Transform pt_in_wrist;
-///     graph.DescribePosition(pt, stf::Source("head_mount_kinect"),
-///                            stf::Target("wrist"), pt_in_wrist);
+///     transform_graph::Transform pt_in_wrist;
+///     graph.DescribePosition(pt, transform_graph::Source("head_mount_kinect"),
+///                            transform_graph::Target("wrist"), pt_in_wrist);
 ///     // pt_in_base is in wrist frame, do something with it
 ///   }
 /// \endcode
@@ -45,10 +46,12 @@ namespace stf {
 /// In the example above, it may be more efficient to cache the transform
 /// between head_mount_kinect and wrist:
 /// \code
-///   stf::Transform kinect_in_wrist;
-///   graph.ComputeDescription(stf::LocalFrame("head_mount_kinect"),
-///                            stf::RefFrame("wrist"), &kinect_in_wrist);
-///   graph.Add("head_mount_kinect", stf::RefFrame("wrist"), kinect_in_wrist);
+///   transform_graph::Transform kinect_in_wrist;
+///   graph.ComputeDescription(transform_graph::LocalFrame("head_mount_kinect"),
+///                            transform_graph::RefFrame("wrist"),
+///                            &kinect_in_wrist);
+///   graph.Add("head_mount_kinect", transform_graph::RefFrame("wrist"),
+///             kinect_in_wrist);
 /// \endcode
 class Graph {
  public:
@@ -65,8 +68,8 @@ class Graph {
   /// invertible.
   ///
   /// For the third parameter, you do not necessarily need to supply an
-  /// stf::Transform type. Many common transformation types will be implicitly
-  /// converted, see transform.h to see a list.
+  /// transform_graph::Transform type. Many common transformation types will be
+  /// implicitly converted, see transform.h to see a list.
   ///
   /// \param[in] name The name of the frame being added to the graph.
   /// \param[in] ref_frame_name The name of the reference frame that this
@@ -79,7 +82,7 @@ class Graph {
   ///   geometry_msgs::Pose pose;
   ///   pose.position.x = 0.1;
   ///   pose.orientation.w = 1;
-  ///   graph.Add("tooltip", stf::RefFrame("wrist"), pose);
+  ///   graph.Add("tooltip", transform_graph::RefFrame("wrist"), pose);
   /// \endcode
   void Add(const std::string& name, const RefFrame& ref_frame_name,
            const Transform& transform);
@@ -110,8 +113,9 @@ class Graph {
   ///
   /// \b Example: describe the wrist frame relative to the base frame
   /// \code
-  ///   graph.ComputeDescription(stf::LocalFrame("wrist"),
-  ///                            stf::RefFrame("base"), &wrist_in_base);
+  ///   graph.ComputeDescription(transform_graph::LocalFrame("wrist"),
+  ///                            transform_graph::RefFrame("base"),
+  ///                            &wrist_in_base);
   /// \endcode
   ///
   /// The origin of the wrist in the base frame is:
@@ -148,10 +152,10 @@ class Graph {
   ///
   /// \b Example: get the mapping from left hand to right hand
   /// \code
-  ///   graph.Add("left hand", stf::RefFrame("base"), ...);
-  ///   graph.Add("right hand", stf::RefFrame("base"), ...);
-  ///   graph.ComputeMapping(stf::From("left hand"), stf::To("right hand"),
-  ///     &left_to_right);
+  ///   graph.Add("left hand", transform_graph::RefFrame("base"), ...);
+  ///   graph.Add("right hand", transform_graph::RefFrame("base"), ...);
+  ///   graph.ComputeMapping(transform_graph::From("left hand"),
+  ///                        transform_graph::To("right hand"), &left_to_right);
   /// \endcode
   ///
   /// Now multiplying left_to_right by the point (0.1, 0, 0) in front of the
@@ -187,9 +191,9 @@ class Graph {
   ///   Pose p;
   ///   p.position.x = 0.1;
   ///   p.orientation.w = 1;
-  ///   stf::Transform pose_in_base
-  ///   graph.TransformFrame(p, stf::Source("wrist"), stf::Target("base"),
-  ///     &pose_in_base);
+  ///   transform_graph::Transform pose_in_base
+  ///   graph.TransformFrame(p, transform_graph::Source("wrist"),
+  ///                        transform_graph::Target("base"), &pose_in_base);
   /// \endcode
   ///
   /// \note
@@ -233,8 +237,8 @@ class Graph {
   ///   PointStamped ps;
   ///   ps.header.frame_id = "wrist";
   ///   ps.pose.position.x = 0.1;
-  ///   graph.DescribePosition(ps.point, stf::Source("wrist"),
-  ///     stf::Target("base"), &ps_base)
+  ///   graph.DescribePosition(ps.point, transform_graph::Source("wrist"),
+  ///                          transform_graph::Target("base"), &ps_base)
   /// \endcode
   ///
   /// \note
@@ -255,7 +259,8 @@ class Graph {
   ///   geometry_msgs::Point pt;
   ///   pt.x = 1; pt.y = 0; pt.z = 0;
   ///   geometry_msgs::Point pt_out;
-  ///   MapPosition(pt, stf::From("left_hand"), stf::To("right_hand"), &pt_out);
+  ///   MapPosition(pt, transform_graph::From("left_hand"),
+  ///               transform_graph::To("right_hand"), &pt_out);
   /// \endcode
   ///
   /// pt_out will be (1, -0.6, 0);
@@ -282,6 +287,6 @@ class Graph {
   std::map<std::pair<std::string, std::string>, Transform> transforms_;
   internal::Graph graph_;
 };
-}  // namespace stf
+}  // namespace transform_graph
 
-#endif  // _STF_GRAPH_H_
+#endif  // _TRANSFORM_GRAPH_GRAPH_H_

@@ -1,15 +1,15 @@
-#ifndef _STF_TRANSFORM_H_
-#define _STF_TRANSFORM_H_
+#ifndef _TRANSFORM_GRAPH_TRANSFORM_H_
+#define _TRANSFORM_GRAPH_TRANSFORM_H_
 
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
 #include "geometry_msgs/Pose.h"
 #include "tf/transform_datatypes.h"
 
-#include "stf/orientation.h"
-#include "stf/position.h"
+#include "transform_graph/orientation.h"
+#include "transform_graph/position.h"
 
-namespace stf {
+namespace transform_graph {
 /// \brief Transform describes a combination of a rotation and a translation.
 ///
 /// By default it is the identity transform.
@@ -23,8 +23,10 @@ class Transform {
  public:
   /// Default, identity constructor.
   Transform();
-  /// Constructor from other stf types (or implicitly convertible types).
-  Transform(const stf::Position& position, const stf::Orientation& orientation);
+  /// Constructor from other transform_graph types (or implicitly convertible
+  /// types).
+  Transform(const transform_graph::Position& position,
+            const transform_graph::Orientation& orientation);
   /// Constructor from a tf Transform.
   Transform(const tf::Transform& st);
   /// Constructor from a pose.
@@ -43,11 +45,11 @@ class Transform {
 
   /// \brief Returns the inverse of this transform.
   /// \returns The inverse of this transform.
-  stf::Transform inverse() const;
+  transform_graph::Transform inverse() const;
 
  private:
   Eigen::Affine3d transform_;
 };
-}  // namespace stf
+}  // namespace transform_graph
 
-#endif  // _STF_TRANSFORM_H_
+#endif  // _TRANSFORM_GRAPH_TRANSFORM_H_

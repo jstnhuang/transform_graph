@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(stf)
+project(transform_graph)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -106,7 +106,12 @@ find_package(PCL REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES stf_explicit_types stf_position stf_orientation stf_graph stf_transform
+  LIBRARIES
+    transform_graph_explicit_types
+    transform_graph_graph
+    transform_graph_orientation
+    transform_graph_position
+    transform_graph_transform
   CATKIN_DEPENDS roscpp rospy
 #  DEPENDS system_lib
 )
@@ -125,53 +130,53 @@ include_directories(
   ${Eigen_INCLUDE_DIRS}
 )
 
-add_library(stf_internal_graph src/graph_internal.cpp)
-add_dependencies(stf_internal_graph ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(stf_internal_graph ${catkin_LIBRARIES})
+add_library(transform_graph_internal_graph src/graph_internal.cpp)
+add_dependencies(transform_graph_internal_graph ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(transform_graph_internal_graph ${catkin_LIBRARIES})
 
-add_library(stf_graph src/graph.cpp)
-add_dependencies(stf_graph
-  stf_explicit_types
-  stf_internal_graph
-  stf_transform
+add_library(transform_graph_graph src/graph.cpp)
+add_dependencies(transform_graph_graph
+  transform_graph_explicit_types
+  transform_graph_internal_graph
+  transform_graph_transform
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(stf_graph
-  stf_explicit_types
-  stf_internal_graph
-  stf_transform
+target_link_libraries(transform_graph_graph
+  transform_graph_explicit_types
+  transform_graph_internal_graph
+  transform_graph_transform
   ${catkin_LIBRARIES})
 
-add_library(stf_position src/position.cpp)
-add_dependencies(stf_position ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(stf_position ${catkin_LIBRARIES} ${pcl_LIBRARIES})
+add_library(transform_graph_position src/position.cpp)
+add_dependencies(transform_graph_position ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(transform_graph_position ${catkin_LIBRARIES} ${pcl_LIBRARIES})
 
-add_library(stf_orientation src/orientation.cpp)
-add_dependencies(stf_orientation ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(stf_orientation ${catkin_LIBRARIES})
+add_library(transform_graph_orientation src/orientation.cpp)
+add_dependencies(transform_graph_orientation ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(transform_graph_orientation ${catkin_LIBRARIES})
 
-add_library(stf_transform src/transform.cpp)
-add_dependencies(stf_transform
-  stf_position
-  stf_orientation
+add_library(transform_graph_transform src/transform.cpp)
+add_dependencies(transform_graph_transform
+  transform_graph_position
+  transform_graph_orientation
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(stf_transform
-  stf_position
-  stf_orientation
+target_link_libraries(transform_graph_transform
+  transform_graph_position
+  transform_graph_orientation
   ${catkin_LIBRARIES})
 
-add_library(stf_explicit_types src/explicit_types.cpp)
-add_dependencies(stf_explicit_types ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(stf_explicit_types ${catkin_LIBRARIES})
+add_library(transform_graph_explicit_types src/explicit_types.cpp)
+add_dependencies(transform_graph_explicit_types ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(transform_graph_explicit_types ${catkin_LIBRARIES})
 
 ## Declare a C++ executable
-# add_executable(stf_node src/stf_node.cpp)
+# add_executable(transform_graph_node src/transform_graph_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(stf_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(transform_graph_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(stf_node
+# target_link_libraries(transform_graph_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -190,7 +195,7 @@ target_link_libraries(stf_explicit_types ${catkin_LIBRARIES})
 # )
 
 ## Mark executables and/or libraries for installation
-install(TARGETS stf_explicit_types stf_position stf_orientation stf_graph stf_transform
+install(TARGETS transform_graph_explicit_types transform_graph_position transform_graph_orientation transform_graph_graph transform_graph_transform
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -218,20 +223,20 @@ install(DIRECTORY include/${PROJECT_NAME}/
 if (CATKIN_ENABLE_TESTING)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage") # Enable code coverage
 
-  catkin_add_gtest(stf_graph_test test/graph_test.cpp)
-  target_link_libraries(stf_graph_test stf_graph ${catkin_LIBRARIES})
+  catkin_add_gtest(transform_graph_graph_test test/graph_test.cpp)
+  target_link_libraries(transform_graph_graph_test transform_graph_graph ${catkin_LIBRARIES})
 
-  catkin_add_gtest(stf_internal_graph_test test/internal_graph_test.cpp)
-  target_link_libraries(stf_internal_graph_test stf_internal_graph ${catkin_LIBRARIES})
+  catkin_add_gtest(transform_graph_internal_graph_test test/internal_graph_test.cpp)
+  target_link_libraries(transform_graph_internal_graph_test transform_graph_internal_graph ${catkin_LIBRARIES})
 
-  catkin_add_gtest(stf_position_test test/position_test.cpp)
-  target_link_libraries(stf_position_test stf_position ${catkin_LIBRARIES})
+  catkin_add_gtest(transform_graph_position_test test/position_test.cpp)
+  target_link_libraries(transform_graph_position_test transform_graph_position ${catkin_LIBRARIES})
 
-  catkin_add_gtest(stf_orientation_test test/orientation_test.cpp)
-  target_link_libraries(stf_orientation_test stf_orientation ${catkin_LIBRARIES})
+  catkin_add_gtest(transform_graph_orientation_test test/orientation_test.cpp)
+  target_link_libraries(transform_graph_orientation_test transform_graph_orientation ${catkin_LIBRARIES})
 
-  catkin_add_gtest(stf_transform_test test/transform_test.cpp)
-  target_link_libraries(stf_transform_test stf_transform ${catkin_LIBRARIES})
+  catkin_add_gtest(transform_graph_transform_test test/transform_test.cpp)
+  target_link_libraries(transform_graph_transform_test transform_graph_transform ${catkin_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests

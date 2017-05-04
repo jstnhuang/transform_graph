@@ -1,4 +1,4 @@
-#include "stf/graph_internal.h"
+#include "transform_graph/graph_internal.h"
 
 #include <string>
 #include <vector>
@@ -7,7 +7,7 @@
 using std::string;
 using std::vector;
 
-namespace stf {
+namespace transform_graph {
 namespace internal {
 TEST(TestGraphInternal, EmptyGraphFails) {
   Graph graph;
@@ -172,7 +172,7 @@ TEST(TestGraphInternal, MiddleSelfLoop) {
   EXPECT_EQ("A", path[2]);
 }
 }  // namespace internal
-}  // namespace stf
+}  // namespace transform_graph
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);

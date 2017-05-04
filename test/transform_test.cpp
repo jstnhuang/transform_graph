@@ -1,8 +1,8 @@
-#include "stf/transform.h"
+#include "transform_graph/transform.h"
 
 #include <gtest/gtest.h>
 
-namespace stf {
+namespace transform_graph {
 TEST(TestTransform, TestDefaultIsIdentity) {
   Transform t;
   Eigen::Matrix4d expected;
@@ -28,14 +28,14 @@ TEST(TestTransform, TestIdentity) {
 }
 
 TEST(TestTransform, TestPosOri) {
-  stf::Position pos(10, 5, 0);
+  transform_graph::Position pos(10, 5, 0);
   Eigen::Matrix3d rot;
   // clang-format off
   rot << 0.86603, -0.5,     0,
          0.5,      0.86603, 0,
          0,        0,       1;
   // clang-format on
-  stf::Orientation ori(rot);
+  transform_graph::Orientation ori(rot);
   Transform t(pos, ori);
 
   Eigen::Matrix4d expected;
@@ -145,7 +145,7 @@ TEST(TestTransform, TestInverse) {
   // clang-format on
   EXPECT_TRUE(expected.isApprox(t.inverse().matrix(), 0.0001));
 }
-}  // namespace stf
+}  // namespace transform_graph
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);

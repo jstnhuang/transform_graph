@@ -1,5 +1,5 @@
-#ifndef _STF_POSITION_H_
-#define _STF_POSITION_H_
+#ifndef _TRANSFORM_GRAPH_POSITION_H_
+#define _TRANSFORM_GRAPH_POSITION_H_
 
 #include "geometry_msgs/Point.h"
 #include "geometry_msgs/Vector3.h"
@@ -7,7 +7,7 @@
 #include "tf/transform_datatypes.h"
 #include "Eigen/Dense"
 
-namespace stf {
+namespace transform_graph {
 /// \brief Position provides conversions from common position types.
 ///
 /// By default it is (0, 0, 0).
@@ -38,6 +38,6 @@ class Position {
  private:
   Eigen::Vector3d vector_;
 };
-}  // namespace stf
+}  // namespace transform_graph
 
-#endif  // _STF_POSITION_H_
+#endif  // _TRANSFORM_GRAPH_POSITION_H_

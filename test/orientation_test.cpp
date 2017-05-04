@@ -1,8 +1,8 @@
-#include "stf/orientation.h"
+#include "transform_graph/orientation.h"
 
 #include <gtest/gtest.h>
 
-namespace stf {
+namespace transform_graph {
 TEST(TestOrientation, Identity) {
   Orientation o;
   Eigen::Matrix3d expected;
@@ -99,7 +99,7 @@ TEST(TestOrientation, TestTfMatrix) {
   // clang-format on
   EXPECT_TRUE(expected.isApprox(o.matrix(), 0.000001));
 }
-}  // namespace stf
+}  // namespace transform_graph
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);

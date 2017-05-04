@@ -1,12 +1,12 @@
 // This file defines wrappers around strings that are used to document
 // arguments.
 
-#ifndef _STF_EXPLICIT_TYPES_H_
-#define _STF_EXPLICIT_TYPES_H_
+#ifndef _TRANSFORM_GRAPH_EXPLICIT_TYPES_H_
+#define _TRANSFORM_GRAPH_EXPLICIT_TYPES_H_
 
 #include <string>
 
-namespace stf {
+namespace transform_graph {
 /// Source represents the name of a frame in which some data originates.
 class Source {
  public:
@@ -96,6 +96,6 @@ class To {
  private:
   const std::string& id_;
 };
-}  // namespace stf
+}  // namespace transform_graph
 
-#endif  // _STF_EXPLICIT_TYPES_H_
+#endif  // _TRANSFORM_GRAPH_EXPLICIT_TYPES_H_

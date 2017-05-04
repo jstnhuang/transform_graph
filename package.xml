@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>stf</name>
+  <name>transform_graph</name>
   <version>0.1.0</version>
-  <description>Static transform library</description>
+  <description>Library for computing transformations in arbitrary graph structures.</description>
 
   <maintainer email="jstn@cs.washington.edu">Justin Huang</maintainer>
-  <license>MIT</license>
+  <license>Apache 2.0</license>
 
-  <url type="website">http://wiki.ros.org/stf</url>
+  <url type="website">http://wiki.ros.org/transform_graph</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <depend>cmake_modules</depend>

@@ -1,12 +1,12 @@
-#ifndef _STF_ORIENTATION_H_
-#define _STF_ORIENTATION_H_
+#ifndef _TRANSFORM_GRAPH_ORIENTATION_H_
+#define _TRANSFORM_GRAPH_ORIENTATION_H_
 
 #include "geometry_msgs/Quaternion.h"
 #include "tf/transform_datatypes.h"
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
 
-namespace stf {
+namespace transform_graph {
 /// \brief Orientation provides conversions from common orientation types.
 ///
 /// By default it is the identity orientation.
@@ -35,6 +35,6 @@ class Orientation {
  private:
   Eigen::Matrix3d matrix_;
 };
-}  // namespace stf
+}  // namespace transform_graph
 
-#endif  // _STF_ORIENTATION_H_
+#endif  // _TRANSFORM_GRAPH_ORIENTATION_H_

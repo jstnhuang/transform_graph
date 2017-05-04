@@ -1,4 +1,4 @@
-#include "stf/graph.h"
+#include "transform_graph/graph.h"
 
 #include <map>
 #include <string>
@@ -8,15 +8,15 @@
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
 
-#include "stf/explicit_types.h"
-#include "stf/transform.h"
+#include "transform_graph/explicit_types.h"
+#include "transform_graph/transform.h"
 
 using std::pair;
 using std::string;
 
 typedef pair<string, string> FrameKey;
 
-namespace stf {
+namespace transform_graph {
 Graph::Graph() : transforms_(), graph_() {}
 
 void Graph::Add(const std::string& name, const RefFrame& source,
@@ -139,4 +139,4 @@ bool Graph::GetTransform(const std::string& source, const std::string& target,
   }
   return false;
 }
-}  // namespace stf
+}  // namespace transform_graph

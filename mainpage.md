@@ -1,61 +1,61 @@
-stf - Static Transforms Library {#mainpage}
+transform_graph {#mainpage}
 ===============================
 
-stf is a library for computing transformations between coordinate frames. It is similar to the tf library but is more lightweight.
+transform_graph is a library for computing transformations between coordinate frames. It is similar to the tf library but is more lightweight.
 
 ## Differences from tf
 
 - Coordinate frames do not have to be structured in a tree. Instead, frames can be arranged in an arbitrary graph (weakly connected, cyclic, disconnected).
-- stf does not depend on ROS except to convert from common message types. As a result, you do not need to run a ROS master to use stf and it is suitable for use in pure unit tests.
-- stf is not a distributed system. Programmers simply create and use the stf graph as an object in memory.
+- transform_graph does not depend on ROS except to convert from common message types. As a result, you do not need to run a ROS master to use transform_graph and it is suitable for use in pure unit tests.
+- transform_graph is not a distributed system. Programmers simply create and use the transform_graph graph as an object in memory.
 
 ## Quick start
 
-stf::Graph maintains the graph of transformations and is the primary interface to stf:
+transform_graph::Graph maintains the graph of transformations and is the primary interface to transform_graph:
 ~~~{.cpp}
-#include "stf/stf.h"
+#include "transform_graph/transform_graph.h"
 
 int main(int argc, char** argv) {
-  stf::Graph graph; 
+  transform_graph::Graph graph; 
   return 0;
 }
 ~~~
 
-Add frames to the graph using stf::Graph::Add:
+Add frames to the graph using transform_graph::Graph::Add:
 ~~~{.cpp}
-stf::Graph graph;
+transform_graph::Graph graph;
 
 geometry_msgs::Pose torso_pose;
 pose.position.z = 0.4;
 pose.orientation.w = 1;
 
-graph.Add("torso_lift_link", stf::RefFrame("base_link"), torso_pose);
+graph.Add("torso_lift_link", transform_graph::RefFrame("base_link"), torso_pose);
 ~~~
 
-Get points in different frames using stf::Graph::DescribePosition.
+Get points in different frames using transform_graph::Graph::DescribePosition.
 In this example, we want to know what a point 10 cm in front of the robot's wrist is, expressed in the base frame:
 ~~~{.cpp}
 geometry_msgs::Point pt;
 pt.x = 0.1;
-stf::Transform pt_in_base;
-graph.DescribePosition(pt, stf::Source("wrist"), stf::Target("base_link"), &pt_in_base);
+transform_graph::Transform pt_in_base;
+graph.DescribePosition(pt, transform_graph::Source("wrist"), transform_graph::Target("base_link"), &pt_in_base);
 Eigen::Vector3d v = pt_in_base.vector();
 ~~~
 
-## Types used by stf
+## Types used by transform_graph
 
-stf::Transform is the library's representation of a transformation.
-Similarly, stf::Position and stf::Orientation describe positions and orientations.
-Many common types, (e.g., geometry_msgs::Point, Eigen::Quaterniond, geometry_msgs::Pose, pcl::PointXYZ) can be implicitly converted into their stf equivalents.
+transform_graph::Transform is the library's representation of a transformation.
+Similarly, transform_graph::Position and transform_graph::Orientation describe positions and orientations.
+Many common types, (e.g., geometry_msgs::Point, Eigen::Quaterniond, geometry_msgs::Pose, pcl::PointXYZ) can be implicitly converted into their transform_graph equivalents.
 See transform.h for a list of types that can be implicitly converted.
 
-Currently, the library does not have functions to convert from stf types back into common types.
-Instead, call stf::Position::vector(), stf::Orientation::matrix(), or stf::Transform::matrix(), which return Eigen::Vector3d, Eigen::Matrix3d (a rotation matrix), and Eigen::Matrix4d (a homogeneous transform matrix), respectively.
+Currently, the library does not have functions to convert from transform_graph types back into common types.
+Instead, call transform_graph::Position::vector(), transform_graph::Orientation::matrix(), or transform_graph::Transform::matrix(), which return Eigen::Vector3d, Eigen::Matrix3d (a rotation matrix), and Eigen::Matrix4d (a homogeneous transform matrix), respectively.
 
-Types like stf::Source, stf::RefFrame, stf::From, etc. are wrappers around strings and are intended to help clarify the meaning of function arguments.
+Types like transform_graph::Source, transform_graph::RefFrame, transform_graph::From, etc. are wrappers around strings and are intended to help clarify the meaning of function arguments.
 
 ## Describing vs. Mapping
-stf supports two operations, *describing* and *mapping*, which are different ways of thinking about the same thing.
+transform_graph supports two operations, *describing* and *mapping*, which are different ways of thinking about the same thing.
 
 To *describe* a point is to express the coordinates of the point in a different frame of reference, called the target frame.
 For example, suppose there is a left wrist frame at (0, 0.3, 0) and a right wrist frame at (0, -0.3, 0) and they have the same orientation.
@@ -73,34 +73,34 @@ Below is a summary of frame relationships:
 
 Usage | Reference frame | Local frame
 ----- | --------------- | -----------
-General | stf::RefFrame | stf::LocalFrame
-Description | stf::Target | stf::Source
-Mapping | stf::To | stf::From
+General | transform_graph::RefFrame | transform_graph::LocalFrame
+Description | transform_graph::Target | transform_graph::Source
+Mapping | transform_graph::To | transform_graph::From
 
 ## ComputeDescription vs. DescribePosition
-Each time you call stf::Graph::DescribePosition or stf::Graph::MapPosition, stf finds a path of transformations between the frames and multiplies the point through the chain from right to left, which leads to fewer multiplications than doing so left to right.
+Each time you call transform_graph::Graph::DescribePosition or transform_graph::Graph::MapPosition, transform_graph finds a path of transformations between the frames and multiplies the point through the chain from right to left, which leads to fewer multiplications than doing so left to right.
 However, if you are going to transform many points between the same two frames, it will be more efficient to just multiply all of the matrices along the transformation chain once and use the resulting matrix over and over.
-To do so, call stf::Graph::ComputeDescription.
+To do so, call transform_graph::Graph::ComputeDescription.
 For convenience, you can always place the result back into the graph.
-stf will always use this transform because it will be the shortest path between the two frames.
+transform_graph will always use this transform because it will be the shortest path between the two frames.
 
 For example, suppose we want to transform thousands of points in a point cloud into the wrist frame.
 ~~~{.cpp}
 // Compute the frame describing the Kinect frame relative to the wrist frame.
-stf::Transform cloud_in_wrist;
-graph.ComputeDescription(stf::LocalFrame("head_mount_kinect"), stf::RefFrame("wrist"), &cloud_in_wrist);
+transform_graph::Transform cloud_in_wrist;
+graph.ComputeDescription(transform_graph::LocalFrame("head_mount_kinect"), transform_graph::RefFrame("wrist"), &cloud_in_wrist);
 
 // Add it back into the graph.
-graph.Add("head_mount_kinect", stf::RefFrame("wrist"), cloud_in_wrist);
+graph.Add("head_mount_kinect", transform_graph::RefFrame("wrist"), cloud_in_wrist);
 
 for (size_t i=0; i<cloud.size(); ++i) {
   const pcl::PointXYZ& pt = cloud.points[i];
-  stf::Position pt_in_wrist;
-  graph.DescribePosition(pt, stf::Source("head_mount_kinect"), stf::Target("wrist"), &pt_in_wrist);
+  transform_graph::Position pt_in_wrist;
+  graph.DescribePosition(pt, transform_graph::Source("head_mount_kinect"), transform_graph::Target("wrist"), &pt_in_wrist);
 }
 ~~~
 
 ## Graph details
 - If there are multiple paths between two frames, the shortest one is chosen.
 - You can update a transform by simply adding it again.
-- You do not need to add the inverse of a transform, stf automatically computes them. If you do add the inverse of an existing edge, it will update the edge in the graph.
+- You do not need to add the inverse of a transform, transform_graph automatically computes them. If you do add the inverse of an existing edge, it will update the edge in the graph.

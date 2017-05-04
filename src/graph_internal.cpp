@@ -1,4 +1,4 @@
-#include "stf/graph_internal.h"
+#include "transform_graph/graph_internal.h"
 
 #include <algorithm>
 #include <map>
@@ -11,7 +11,7 @@ using std::queue;
 using std::set;
 using std::string;
 
-namespace stf {
+namespace transform_graph {
 namespace internal {
 Graph::Graph() : adjacencies_() {}
 
@@ -67,4 +67,4 @@ bool Graph::HasVertex(const std::string& v) const {
   return adjacencies_.find(v) != adjacencies_.end();
 }
 }  // namespace internal
-}  // namespace stf
+}  // namespace transform_graph

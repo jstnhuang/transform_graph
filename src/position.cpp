@@ -1,4 +1,4 @@
-#include "stf/position.h"
+#include "transform_graph/position.h"
 
 #include "geometry_msgs/Point.h"
 #include "geometry_msgs/Vector3.h"
@@ -6,7 +6,7 @@
 #include "tf/transform_datatypes.h"
 #include "Eigen/Dense"
 
-namespace stf {
+namespace transform_graph {
 Position::Position() : vector_() { vector_ << 0, 0, 0; }
 
 Position::Position(double x, double y, double z) : vector_() {
@@ -32,4 +32,4 @@ Position::Position(const tf::Vector3& v) : vector_() {
 }
 
 Eigen::Vector3d Position::vector() const { return vector_; }
-}  // namespace stf
+}  // namespace transform_graph

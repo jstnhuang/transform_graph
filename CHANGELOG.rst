@@ -1,7 +1,7 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-Changelog for package stf
+Changelog for package transform_graph
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 0.1.0 (2017-01-31)
 ------------------
-The initial release of stf.
+The initial release of transform_graph.

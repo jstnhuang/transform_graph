@@ -1,12 +1,12 @@
-#ifndef _STF_GRAPH_INTERNAL_H_
-#define _STF_GRAPH_INTERNAL_H_
+#ifndef _TRANSFORM_GRAPH_GRAPH_INTERNAL_H_
+#define _TRANSFORM_GRAPH_GRAPH_INTERNAL_H_
 
 #include <map>
 #include <set>
 #include <string>
 #include <vector>
 
-namespace stf {
+namespace transform_graph {
 namespace internal {
 /// \brief Graph implements a sparse, unweighted, and undirected
 /// graph.
@@ -33,6 +33,6 @@ class Graph {
   std::map<std::string, std::set<std::string> > adjacencies_;
 };
 }  // namespace internal
-}  // namespace stf
+}  // namespace transform_graph
 
-#endif  // _STF_GRAPH_INTERNAL_H_
+#endif  // _TRANSFORM_GRAPH_GRAPH_INTERNAL_H_

@@ -1,4 +1,4 @@
-#include "stf/position.h"
+#include "transform_graph/position.h"
 
 #include <gtest/gtest.h>
 
@@ -8,7 +8,7 @@
 #include "tf/transform_datatypes.h"
 #include "Eigen/Dense"
 
-namespace stf {
+namespace transform_graph {
 TEST(TestPosition, Identity) {
   Position p;
   EXPECT_EQ(p.vector().x(), 0);
@@ -71,7 +71,7 @@ TEST(TestPosition, TestTfVector) {
   EXPECT_EQ(pos.vector().y(), 2);
   EXPECT_EQ(pos.vector().z(), 3);
 }
-}  // namespace stf
+}  // namespace transform_graph
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
