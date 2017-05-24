@@ -112,8 +112,12 @@ catkin_package(
     transform_graph_orientation
     transform_graph_position
     transform_graph_transform
-  CATKIN_DEPENDS roscpp rospy
-#  DEPENDS system_lib
+  CATKIN_DEPENDS
+    geometry_msgs
+    roscpp
+    rospy
+    tf
+  DEPENDS Eigen PCL
 )
 
 ###########
