@@ -2,8 +2,8 @@
 Changelog for package transform_graph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.2 (2017-05-24)
+------------------
 * Fixed CMakeLists.txt for dependent projects.
 * Contributors: Justin Huang
 
