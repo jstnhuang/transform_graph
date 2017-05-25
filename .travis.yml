@@ -15,7 +15,7 @@ before_install:
 notifications:
   email: false
   slack:
-    secure: osfYiYVXgqP1RXHJFvOt79oOg1VE4S7b0Xx+nrzkpgZtROpqa4psYXPazOuAS5lUl9/2h3V8I2nkTaaAJXubI410X4YtNo1s4Lnb/ZCoJXDlSZEXI5WcuEptYVL+ZXQbZMgQGDFzII3ZTVz3i05p5MdIEzMi3APyY656PkUZamRIB/Q/BS+mcBjdUaS7w3OG0J3TFc0E1H7HKqrpi4Q42VhZBndqJBbmn0fU0xHj4UqAv42f0ib1roZHlCh1rt+loqJQ2qveQNlhGqLiW4LnylH4Img0jA0rMVIQ7/B98yYzKCGe8F9Z16lwJ+evUwBOOgaN5k1Zwc2R9FjuqTtqL4RrCNsQE3xZP+KeRS4tkS8mH0bhgy5Gat9VCp8sp2SoljN1vkoXoqmZZpcrbrm2A6fhLCb9R3iSwoHXbx4eexJ4ITdF13wp0JGX1tBmd4lpqQstDC0iHXsK90fxJr8C/Ak06TrjWNFa+GDFY9fllQdxrHLtQ9AsHlgnluGbQTsv0QPTt5YBekkQDmycLRcR4egx9wOImi+IqvEc9bV1yRR44SNDpsfy59vnbKn0JYIvUJFOi7YLBpzFOq2pFYYdPYg5k88BOKTPS7Pjyz1WjG0A9ggbsxGKrZ0mEEwhFS18dmukAqwTKtKs5wJtKiJqzHO6MDXdx29VeA26E5WLfqw=
+    secure: okoS8NDL+uON5XmzEqFd1fdsg/ysDhQLA84/jHHSFzOWHv8kdDM95n0vAseG5K2wx0C/9RKcfC8zAHVdQzjERe4vkFVG8XwGTBoI05siv/JVc57uYBAgvDHbTokxM5vpzQNg0RHZAjZ49hheQrVWChY3WIl9qC5GBtNVl4KWtZG0jzQ+PbLdETeg9p0KV5fL3FHLNCLalk80oMN+zxQbFIESGGxyjzZGJDLT0vZQoUBNMZ6fEKHrAx7+JBG2qW4xef9K/UXXl7Sur+SDve6VVBAb0UUkulTpvNcDeyjxIrIw496UF9TS9fGz1iOhSGhZsBgnaYzfjr0NdTjrNM9kI10/DLMyWTSjd6uv07VGOivwFWIZz2UeMyHoU7pEduczu6f+5sbgvLPge2fsIy1gDOmKLedqfBadS3xrM4VwNf5ksJl32u4neAbjVuOkkbI6YIoLfR4jkJz3wvzUwOWN+Fm8Mir0xwd+4jg+M37vUizY3wrr0KYQb1DkbjExeNKe81yxOsr/XtcT5I5gUW5mp5MMIHhZ02U5ErSfdUz7oAY7X3Ddo1bhbQHjzpbLyzjsEIXffWTgtu+tE4ZYtJByZ3toNPGkyWWBdO4fv6f78zDIsTnA6Qq2tU9cpN7f3p3N3fB+pVkaNCLZp2KyiDuPI79e6gH/XfUljc+qWMpn720=
 install:
 - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main"
   > /etc/apt/sources.list.d/ros-latest.list'
@@ -41,6 +41,7 @@ after_success:
 - rosdoc_lite .
 - cd ~/catkin_ws/build
 - lcov --directory . --capture --output-file coverage.info
-- lcov --remove coverage.info '/opt/*' '/usr/*' '*/devel/*' '*test_*' '*_test*' --output-file coverage.info
+- lcov --remove coverage.info '/opt/*' '/usr/*' '*/devel/*' '*test_*' '*_test*' --output-file
+  coverage.info
 - lcov --list coverage.info
 - coveralls-lcov coverage.info
