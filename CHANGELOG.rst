@@ -2,8 +2,8 @@
 Changelog for package transform_graph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.4 (2017-05-26)
+------------------
 * Installed internal_graph library.
 * Contributors: Justin Huang
 
