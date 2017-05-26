@@ -108,6 +108,7 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES
     transform_graph_explicit_types
+    transform_graph_internal_graph
     transform_graph_graph
     transform_graph_orientation
     transform_graph_position
@@ -152,7 +153,7 @@ target_link_libraries(transform_graph_graph
 
 add_library(transform_graph_position src/position.cpp)
 add_dependencies(transform_graph_position ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(transform_graph_position ${catkin_LIBRARIES} ${pcl_LIBRARIES})
+target_link_libraries(transform_graph_position ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 add_library(transform_graph_orientation src/orientation.cpp)
 add_dependencies(transform_graph_orientation ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
