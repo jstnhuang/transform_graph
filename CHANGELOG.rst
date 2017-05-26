@@ -2,6 +2,11 @@
 Changelog for package transform_graph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Installed internal_graph library.
+* Contributors: Justin Huang
+
 0.1.3 (2017-05-25)
 ------------------
 * Added missing library export to CMakeLists.txt
