@@ -200,7 +200,13 @@ target_link_libraries(transform_graph_explicit_types ${catkin_LIBRARIES})
 # )
 
 ## Mark executables and/or libraries for installation
-install(TARGETS transform_graph_explicit_types transform_graph_position transform_graph_orientation transform_graph_graph transform_graph_transform
+install(TARGETS
+    transform_graph_explicit_types
+    transform_graph_graph
+    transform_graph_internal_graph
+    transform_graph_orientation
+    transform_graph_position
+    transform_graph_transform
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
