@@ -2,8 +2,8 @@
 Changelog for package transform_graph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2017-07-12)
+------------------
 * Added convenience method to get a Pose from a Transform.
 * Added convenience method to get a quaternion from an Orientation.
 * Contributors: Justin Huang
