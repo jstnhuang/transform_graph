@@ -1,10 +1,10 @@
 #ifndef _TRANSFORM_GRAPH_ORIENTATION_H_
 #define _TRANSFORM_GRAPH_ORIENTATION_H_
 
-#include "geometry_msgs/Quaternion.h"
-#include "tf/transform_datatypes.h"
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
+#include "geometry_msgs/Quaternion.h"
+#include "tf/transform_datatypes.h"
 
 namespace transform_graph {
 /// \brief Orientation provides conversions from common orientation types.
@@ -31,6 +31,10 @@ class Orientation {
   /// \brief The rotation matrix represented by this orientation.
   /// \returns The rotation matrix.
   Eigen::Matrix3d matrix() const;
+
+  /// \brief The quaternion representation of this orientation.
+  /// \returns The quaternion.
+  Eigen::Quaterniond quaternion() const;
 
  private:
   Eigen::Matrix3d matrix_;

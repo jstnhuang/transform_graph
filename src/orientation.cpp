@@ -1,9 +1,9 @@
 #include "transform_graph/orientation.h"
 
-#include "geometry_msgs/Quaternion.h"
-#include "tf/transform_datatypes.h"
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
+#include "geometry_msgs/Quaternion.h"
+#include "tf/transform_datatypes.h"
 
 namespace transform_graph {
 Orientation::Orientation() : matrix_() {
@@ -44,4 +44,8 @@ Orientation::Orientation(const tf::Matrix3x3& m) : matrix_() {
 }
 
 Eigen::Matrix3d Orientation::matrix() const { return matrix_; }
+
+Eigen::Quaterniond Orientation::quaternion() const {
+  return Eigen::Quaterniond(matrix_);
+}
 }  // namespace transform_graph
