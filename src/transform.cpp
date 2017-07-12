@@ -2,8 +2,8 @@
 
 #include "Eigen/Dense"
 
-#include "transform_graph/position.h"
 #include "transform_graph/orientation.h"
+#include "transform_graph/position.h"
 
 using std::string;
 
@@ -42,6 +42,17 @@ Transform Transform::Identity() {
 }
 
 Eigen::Matrix4d Transform::matrix() const { return transform_.matrix(); }
+
+void Transform::ToPose(geometry_msgs::Pose* pose) const {
+  pose->position.x = transform_.translation().x();
+  pose->position.y = transform_.translation().y();
+  pose->position.z = transform_.translation().z();
+  Eigen::Quaterniond q(transform_.rotation());
+  pose->orientation.w = q.w();
+  pose->orientation.x = q.x();
+  pose->orientation.y = q.y();
+  pose->orientation.z = q.z();
+}
 
 Transform Transform::inverse() const {
   return Transform(transform_.inverse(Eigen::Affine).matrix());

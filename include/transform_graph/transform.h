@@ -43,6 +43,10 @@ class Transform {
   /// \returns This transform's homogeneous transform matrix.
   Eigen::Matrix4d matrix() const;
 
+  /// \brief Returns this transform as a geometry_msgs::Pose.
+  /// \returns This transform as a Pose.
+  void ToPose(geometry_msgs::Pose* pose) const;
+
   /// \brief Returns the inverse of this transform.
   /// \returns The inverse of this transform.
   transform_graph::Transform inverse() const;
