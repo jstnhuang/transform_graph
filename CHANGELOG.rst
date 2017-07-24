@@ -2,8 +2,8 @@
 Changelog for package transform_graph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.1 (2017-07-24)
+------------------
 * Changed Markdown documentation to Doxygen format.
 * Contributors: Justin Huang
 
