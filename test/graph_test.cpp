@@ -65,7 +65,8 @@ TEST(TestGraph, SelfTargetIsIdentity) {
               0, 0, 0, 1;
   // clang-format on
   Transform actual;
-  bool success = graph.ComputeDescription("tool", RefFrame("tool"), &actual);
+  bool success =
+      graph.ComputeDescription(LocalFrame("tool"), RefFrame("tool"), &actual);
   EXPECT_TRUE(success);
 
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.000001));
