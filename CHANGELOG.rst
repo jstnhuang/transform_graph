@@ -2,8 +2,8 @@
 Changelog for package transform_graph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.0 (2018-01-31)
+------------------
 * Added methods for converting Position, Orientation, and Transform back to common types.
 * Made LocalFrame implicitly convertable from strings, which makes the API cleaner.
 * Updated docs.
