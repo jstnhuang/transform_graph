@@ -88,7 +88,7 @@ For example, suppose we want to transform thousands of points in a point cloud i
 \code
 // Compute the frame describing the Kinect frame relative to the wrist frame.
 transform_graph::Transform cloud_in_wrist;
-graph.ComputeDescription(transform_graph::LocalFrame("head_mount_kinect"), transform_graph::RefFrame("wrist"), &cloud_in_wrist);
+graph.ComputeDescription("head_mount_kinect", transform_graph::RefFrame("wrist"), &cloud_in_wrist);
 
 // Add it back into the graph.
 graph.Add("head_mount_kinect", transform_graph::RefFrame("wrist"), cloud_in_wrist);

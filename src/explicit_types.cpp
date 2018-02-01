@@ -10,6 +10,7 @@ Target::Target(const std::string& id) : id_(id) {}
 std::string Target::id() const { return id_; }
 
 LocalFrame::LocalFrame(const std::string& id) : id_(id) {}
+LocalFrame::LocalFrame(const char* id) : id_(id) {}
 std::string LocalFrame::id() const { return id_; }
 
 RefFrame::RefFrame(const std::string& id) : id_(id) {}

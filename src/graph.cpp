@@ -58,8 +58,7 @@ bool Graph::ComputeDescription(const LocalFrame& local_frame,
 
 bool Graph::ComputeMapping(const From& from, const To& to,
                            Transform* transform) const {
-  return ComputeDescription(LocalFrame(to.id()), RefFrame(from.id()),
-                            transform);
+  return ComputeDescription(to.id(), RefFrame(from.id()), transform);
 }
 
 bool Graph::DescribePose(const Transform& in, const Source& source_frame,

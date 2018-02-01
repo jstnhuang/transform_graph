@@ -47,12 +47,13 @@ class LocalFrame {
   ///
   /// \param[in] id The name of the frame.
   LocalFrame(const std::string& id);
+  LocalFrame(const char* id);
 
   /// \returns The name of the frame.
   std::string id() const;
 
  private:
-  const std::string& id_;
+  const std::string id_;
 };
 
 /// RefFrame represents the name of a transform's reference frame.

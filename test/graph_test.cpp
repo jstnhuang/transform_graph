@@ -65,8 +65,7 @@ TEST(TestGraph, SelfTargetIsIdentity) {
               0, 0, 0, 1;
   // clang-format on
   Transform actual;
-  bool success =
-      graph.ComputeDescription(LocalFrame("tool"), RefFrame("tool"), &actual);
+  bool success = graph.ComputeDescription("tool", RefFrame("tool"), &actual);
   EXPECT_TRUE(success);
 
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.000001));
@@ -88,8 +87,8 @@ TEST(TestGraph, SimpleTranslationDescription) {
               0, 0, 0, 1;
   // clang-format on
   Transform actual;
-  bool success = graph.ComputeDescription(LocalFrame("some link"),
-                                          RefFrame("base link"), &actual);
+  bool success =
+      graph.ComputeDescription("some link", RefFrame("base link"), &actual);
   EXPECT_TRUE(success);
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.000001));
 
@@ -97,8 +96,7 @@ TEST(TestGraph, SimpleTranslationDescription) {
   expected(0, 3) = -1;
   expected(1, 3) = -2;
   expected(2, 3) = -3;
-  graph.ComputeDescription(LocalFrame("base link"), RefFrame("some link"),
-                           &actual);
+  graph.ComputeDescription("base link", RefFrame("some link"), &actual);
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.000001));
 }
 
@@ -123,15 +121,14 @@ TEST(TestGraph, SimpleOrientationDescription) {
               0,     0,     0, 1;
   // clang-format on
   Transform actual;
-  bool success = graph.ComputeDescription(LocalFrame("some link"),
-                                          RefFrame("base link"), &actual);
+  bool success =
+      graph.ComputeDescription("some link", RefFrame("base link"), &actual);
   EXPECT_TRUE(success);
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.000001));
 
   // Reverse direction
   expected.topLeftCorner(3, 3).transposeInPlace();
-  graph.ComputeDescription(LocalFrame("base link"), RefFrame("some link"),
-                           &actual);
+  graph.ComputeDescription("base link", RefFrame("some link"), &actual);
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.0001));
 }
 
@@ -151,8 +148,7 @@ TEST(TestGraph, TranslationChainDescription) {
               0, 0, 0, 1;
   // clang-format on
   Transform actual;
-  bool success =
-      graph.ComputeDescription(LocalFrame("tool"), RefFrame("base"), &actual);
+  bool success = graph.ComputeDescription("tool", RefFrame("base"), &actual);
   EXPECT_TRUE(success);
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.000001));
 
@@ -160,7 +156,7 @@ TEST(TestGraph, TranslationChainDescription) {
   expected(0, 3) = -0.1;
   expected(1, 3) = -0.2;
   expected(2, 3) = -3.3;
-  graph.ComputeDescription(LocalFrame("base"), RefFrame("tool"), &actual);
+  graph.ComputeDescription("base", RefFrame("tool"), &actual);
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.000001));
 }
 
@@ -187,13 +183,12 @@ TEST(TestGraph, OrientationChainDescription) {
   Eigen::Affine3d affine31(ori31);
 
   Transform actual;
-  bool success =
-      graph.ComputeDescription(LocalFrame("link2"), RefFrame("base"), &actual);
+  bool success = graph.ComputeDescription("link2", RefFrame("base"), &actual);
   EXPECT_TRUE(success);
   EXPECT_TRUE(affine13.matrix().isApprox(actual.matrix(), 0.000001));
 
   // Reverse direction
-  graph.ComputeDescription(LocalFrame("base"), RefFrame("link2"), &actual);
+  graph.ComputeDescription("base", RefFrame("link2"), &actual);
   EXPECT_TRUE(affine31.matrix().isApprox(actual.matrix(), 0.000001));
 }
 
@@ -217,8 +212,7 @@ TEST(TestGraph, InverseDescription) {
   graph.Add("B", RefFrame("A"), matrix);
 
   Transform actual;
-  bool success =
-      graph.ComputeDescription(LocalFrame("A"), RefFrame("B"), &actual);
+  bool success = graph.ComputeDescription("A", RefFrame("B"), &actual);
   EXPECT_TRUE(success);
   EXPECT_TRUE(expected.isApprox(actual.matrix(), 0.0001));
 }
