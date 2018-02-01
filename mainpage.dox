@@ -49,9 +49,7 @@ transform_graph::Transform is the library's representation of a transformation.
 Similarly, transform_graph::Position and transform_graph::Orientation describe positions and orientations.
 Many common types, (e.g., geometry_msgs::Point, Eigen::Quaterniond, geometry_msgs::Pose, pcl::PointXYZ) can be implicitly converted into their transform_graph equivalents.
 See transform.h for a list of types that can be implicitly converted.
-
-Currently, the library does not have functions to convert from transform_graph types back into common types.
-Instead, call transform_graph::Position::vector(), transform_graph::Orientation::matrix(), or transform_graph::Transform::matrix(), which return Eigen::Vector3d, Eigen::Matrix3d (a rotation matrix), and Eigen::Matrix4d (a homogeneous transform matrix), respectively.
+transform_graph types can also be converted back into several common types (e.g., transform_graph::Transform::pose(), transform_graph::Position::pcl_point(), transform_graph::Orientation::quaternion()).
 
 Types like transform_graph::Source, transform_graph::RefFrame, transform_graph::From, etc. are wrappers around strings and are intended to help clarify the meaning of function arguments.
 
@@ -105,5 +103,5 @@ for (size_t i=0; i<cloud.size(); ++i) {
 \section details Graph details
 - If there are multiple paths between two frames, the shortest one is chosen.
 - You can update a transform by simply adding it again.
-- You do not need to add the inverse of a transform, transform_graph automatically computes them. If you do add the inverse of an existing edge, it will update the edge in the graph.
+- You do not need to add the inverse of a transform, transform_graph automatically computes them. However, the inverse will not be cached unless you add it to the graph manually.
 */
