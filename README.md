@@ -3,6 +3,9 @@
 [![Build Status](https://travis-ci.org/jstnhuang/transform_graph.svg?branch=indigo-devel)](https://travis-ci.org/jstnhuang/transform_graph)
 [![Coverage Status](https://coveralls.io/repos/github/jstnhuang/transform_graph/badge.svg?branch=indigo-devel)](https://coveralls.io/github/jstnhuang/transform_graph?branch=indigo-devel)
 
+- [ROS wiki](https://wiki.ros.org/transform_graph)
+- [Code API](https://docs.ros.org/indigo/api/transform_graph/html/)
+
 `transform_graph` is a library that computes transformations betweens arbitrary frames in a graph of transformations.
 See the generated documentation for details.
 
