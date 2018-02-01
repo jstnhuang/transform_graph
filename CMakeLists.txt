@@ -6,10 +6,12 @@ project(transform_graph)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   cmake_modules
+  eigen_conversions
   geometry_msgs
   roscpp
   rospy
   tf
+  tf_conversions
 )
 
 find_package(Eigen REQUIRED)
@@ -114,10 +116,12 @@ catkin_package(
     transform_graph_position
     transform_graph_transform
   CATKIN_DEPENDS
+    eigen_conversions
     geometry_msgs
     roscpp
     rospy
     tf
+    tf_conversions
   DEPENDS Eigen PCL
 )
 

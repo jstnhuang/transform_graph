@@ -9,8 +9,8 @@
 namespace transform_graph {
 /// \brief Orientation provides conversions from common orientation types.
 ///
-/// By default it is the identity orientation.
-/// To get the rotation matrix, call Orientation::matrix().
+/// By default, it is the identity orientation.
+/// This class provides a number of methods to convert back to common types.
 class Orientation {
  public:
   /// Default constructor, identity rotation.
@@ -35,6 +35,18 @@ class Orientation {
   /// \brief The quaternion representation of this orientation.
   /// \returns The quaternion.
   Eigen::Quaterniond quaternion() const;
+
+  /// \brief Returns the orientation as a geometry_msgs::Quaternion.
+  /// \returns The orientation as a geometry_msgs::Quaternion.
+  geometry_msgs::Quaternion quaternion_msg() const;
+
+  /// \brief Returns the orientation as a tf::Quaternion.
+  /// \returns The orientation as a tf::Quaternion.
+  tf::Quaternion tf_quaternion() const;
+
+  /// \brief Returns the orientation as a tf::Matrix3x3.
+  /// \returns The orientation as a tf::Matrix3x3.
+  tf::Matrix3x3 tf_matrix() const;
 
  private:
   Eigen::Matrix3d matrix_;

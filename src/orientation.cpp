@@ -4,6 +4,7 @@
 #include "Eigen/Geometry"
 #include "geometry_msgs/Quaternion.h"
 #include "tf/transform_datatypes.h"
+#include "tf_conversions/tf_eigen.h"
 
 namespace transform_graph {
 Orientation::Orientation() : matrix_() {
@@ -47,5 +48,27 @@ Eigen::Matrix3d Orientation::matrix() const { return matrix_; }
 
 Eigen::Quaterniond Orientation::quaternion() const {
   return Eigen::Quaterniond(matrix_);
+}
+
+geometry_msgs::Quaternion Orientation::quaternion_msg() const {
+  Eigen::Quaterniond q(matrix_);
+  geometry_msgs::Quaternion out;
+  out.w = q.w();
+  out.x = q.x();
+  out.y = q.y();
+  out.z = q.z();
+  return out;
+}
+
+tf::Quaternion Orientation::tf_quaternion() const {
+  Eigen::Quaterniond q(matrix_);
+  tf::Quaternion out(q.x(), q.y(), q.z(), q.w());
+  return out;
+}
+
+tf::Matrix3x3 Orientation::tf_matrix() const {
+  tf::Matrix3x3 tf_matrix;
+  tf::matrixEigenToTF(matrix_, tf_matrix);
+  return tf_matrix;
 }
 }  // namespace transform_graph

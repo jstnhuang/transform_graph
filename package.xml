@@ -11,11 +11,13 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <depend>cmake_modules</depend>
+  <depend>eigen_conversions</depend>
   <depend>geometry_msgs</depend>
   <depend>libpcl-all</depend>
   <depend>roscpp</depend>
   <depend>rospy</depend>
   <depend>tf</depend>
+  <depend>tf_conversions</depend>
   <test_depend>rosunit</test_depend>
 
   <export>
