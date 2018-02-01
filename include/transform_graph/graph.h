@@ -47,7 +47,7 @@ namespace transform_graph {
 /// between head_mount_kinect and wrist:
 /// \code
 ///   transform_graph::Transform kinect_in_wrist;
-///   graph.ComputeDescription(transform_graph::LocalFrame("head_mount_kinect"),
+///   graph.ComputeDescription("head_mount_kinect",
 ///                            transform_graph::RefFrame("wrist"),
 ///                            &kinect_in_wrist);
 ///   graph.Add("head_mount_kinect", transform_graph::RefFrame("wrist"),
@@ -113,7 +113,7 @@ class Graph {
   ///
   /// \b Example: describe the wrist frame relative to the base frame
   /// \code
-  ///   graph.ComputeDescription(transform_graph::LocalFrame("wrist"),
+  ///   graph.ComputeDescription("wrist",
   ///                            transform_graph::RefFrame("base"),
   ///                            &wrist_in_base);
   /// \endcode
