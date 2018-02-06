@@ -192,8 +192,8 @@ class Graph {
   ///   p.position.x = 0.1;
   ///   p.orientation.w = 1;
   ///   transform_graph::Transform pose_in_base
-  ///   graph.TransformFrame(p, transform_graph::Source("wrist"),
-  ///                        transform_graph::Target("base"), &pose_in_base);
+  ///   graph.DescribePose(p, transform_graph::Source("wrist"),
+  ///                      transform_graph::Target("base"), &pose_in_base);
   /// \endcode
   ///
   /// \note
