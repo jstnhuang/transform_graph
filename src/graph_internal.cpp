@@ -35,7 +35,7 @@ bool Graph::Path(const std::string& source, const std::string& target,
   queue<string> queue;
   queue.push(source);
   while (!queue.empty()) {
-    const string& current = queue.front();
+    const string current = queue.front();
 
     if (current == target) {
       string cur = target;
